@@ -1,0 +1,417 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────────────────────────── */
+:root {
+  /* Palette */
+  --color-black: #080808;
+  --color-charcoal: #111111;
+  --color-carbon: #1A1A1A;
+  --color-graphite: #2A2A2A;
+  --color-muted: #3D3D3D;
+  --color-mid: #6B6B6B;
+  --color-silver: #9A9A9A;
+  --color-ash: #C8C8C8;
+  --color-cream: #F5F0EA;
+  --color-white: #FAFAFA;
+
+  /* Gold Accent */
+  --color-gold: #C9A84C;
+  --color-gold-light: #E0C47A;
+  --color-gold-dark: #A07832;
+  --color-gold-muted: rgba(201, 168, 76, 0.15);
+
+  /* Typography */
+  --font-serif: 'Cormorant Garamond', 'Georgia', serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  /* Spacing */
+  --section-px: clamp(1.5rem, 5vw, 5rem);
+  --max-width: 1440px;
+
+  /* Animation */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quad: cubic-bezier(0.45, 0, 0.55, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 700ms;
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-black);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ─── Tailwind Theme Extensions ─────────────────────────────────────────────── */
+@theme {
+  --color-black: #080808;
+  --color-charcoal: #111111;
+  --color-carbon: #1A1A1A;
+  --color-graphite: #2A2A2A;
+  --color-muted: #3D3D3D;
+  --color-mid: #6B6B6B;
+  --color-silver: #9A9A9A;
+  --color-ash: #C8C8C8;
+  --color-cream: #F5F0EA;
+  --color-white: #FAFAFA;
+  --color-gold: #C9A84C;
+  --color-gold-light: #E0C47A;
+  --color-gold-dark: #A07832;
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.text-display {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.text-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.text-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.text-label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ─── Utility Classes ────────────────────────────────────────────────────────── */
+.gold-text {
+  color: var(--color-gold);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 50%, var(--color-gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background-color: var(--color-gold);
+  color: var(--color-black);
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) ease, transform var(--duration-fast) ease;
+  min-height: 44px;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-gold-light);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  background-color: transparent;
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--color-ash);
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
+  min-height: 44px;
+}
+
+.btn-outline:hover {
+  background-color: var(--color-cream);
+  color: var(--color-black);
+  border-color: var(--color-cream);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--color-cream);
+  cursor: pointer;
+  transition: color var(--duration-fast) ease;
+  min-height: 44px;
+  min-width: 44px;
+  justify-content: center;
+}
+
+.btn-ghost:hover {
+  color: var(--color-gold);
+}
+
+/* ─── Section Containers ─────────────────────────────────────────────────────── */
+.section-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--section-px);
+  padding-right: var(--section-px);
+}
+
+.section-py {
+  padding-top: clamp(3rem, 8vw, 7rem);
+  padding-bottom: clamp(3rem, 8vw, 7rem);
+}
+
+/* ─── Input Styles ────────────────────────────────────────────────────────────── */
+.input-field {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-muted);
+  padding: 0.75rem 0;
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color var(--duration-fast) ease;
+}
+
+.input-field::placeholder {
+  color: var(--color-mid);
+}
+
+.input-field:focus {
+  border-bottom-color: var(--color-gold);
+}
+
+.input-standard {
+  width: 100%;
+  background: var(--color-graphite);
+  border: 1px solid var(--color-muted);
+  padding: 0.75rem 1rem;
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  outline: none;
+  transition: border-color var(--duration-fast) ease;
+  border-radius: 2px;
+}
+
+.input-standard:focus {
+  border-color: var(--color-gold);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-graphite);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+/* ─── Skeleton Loading ────────────────────────────────────────────────────────── */
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.skeleton {
+  background-color: var(--color-graphite);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* ─── Image Overlay ──────────────────────────────────────────────────────────── */
+.img-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 50%);
+}
+
+/* ─── Gold Divider ───────────────────────────────────────────────────────────── */
+.gold-divider {
+  width: 3rem;
+  height: 1px;
+  background: var(--color-gold);
+}
+
+/* ─── Marquee ────────────────────────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 20s linear infinite;
+}
+
+/* ─── Page Transitions ───────────────────────────────────────────────────────── */
+.page-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms var(--ease-out-expo), transform 500ms var(--ease-out-expo);
+}
+
+/* ─── Admin Overrides ────────────────────────────────────────────────────────── */
+body:has(.admin-suite),
+.admin-suite {
+  background-color: #080808 !important;
+}
+
+/* Glassmorphic Cards & Panels */
+.admin-suite .bg-charcoal {
+  background-color: rgba(17, 17, 17, 0.35) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Fine-tune borders globally in admin */
+.admin-suite .border-graphite {
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Upgraded Input styling for Admin */
+.admin-suite .input-standard {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 3px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  color: var(--color-cream) !important;
+  transition: all 0.25s ease !important;
+}
+
+.admin-suite .input-standard:focus {
+  border-color: var(--color-gold) !important;
+  box-shadow: 0 0 12px rgba(201, 168, 76, 0.1) !important;
+}
+
+/* Tables inside Admin */
+.admin-suite table {
+  border-collapse: collapse;
+}
+
+.admin-suite table thead tr {
+  background-color: rgba(0, 0, 0, 0.25) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.admin-suite table th {
+  font-family: var(--font-sans) !important;
+  text-transform: uppercase !important;
+  font-size: 9px !important;
+  letter-spacing: 0.15em !important;
+  font-weight: 500 !important;
+  color: var(--color-mid) !important;
+  padding: 14px 16px !important;
+}
+
+.admin-suite table td {
+  padding: 14px 16px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02) !important;
+}
+
+.admin-suite table tbody tr {
+  transition: background-color 0.2s ease !important;
+}
+
+.admin-suite table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.01) !important;
+}
+
+/* Scrollbar customization in Admin */
+.admin-suite ::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.admin-suite ::-webkit-scrollbar-track {
+  background: #080808;
+}
+
+.admin-suite ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+.admin-suite ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-muted);
+}
+

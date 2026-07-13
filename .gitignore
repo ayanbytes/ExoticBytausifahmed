@@ -1,0 +1,19 @@
+# Local environment variables
+.env
+backend/.env
+frontend/.env
+
+# Python virtual environment and cache
+backend/venv/
+backend/__pycache__/
+*.pyc
+
+# Node dependencies and builds
+frontend/node_modules/
+frontend/dist/
+
+# Editor / System files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
