@@ -100,6 +100,7 @@ class ProductBase(BaseModel):
     is_published: bool = False
     is_featured: bool = False
     is_new_arrival: bool = False
+    total_stock: int = 0
     low_stock_threshold: int = 5
     size_guide: Optional[str] = None
     shipping_info: Optional[str] = None
@@ -121,6 +122,7 @@ class ProductUpdate(BaseModel):
     is_published: Optional[bool] = None
     is_featured: Optional[bool] = None
     is_new_arrival: Optional[bool] = None
+    total_stock: Optional[int] = None
     low_stock_threshold: Optional[int] = None
     size_guide: Optional[str] = None
     shipping_info: Optional[str] = None

@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform, useMotionValue } from 'framer-motion';
 import { Mail, MessageSquare, MapPin, Clock, ExternalLink, ArrowRight } from 'lucide-react';
 
 const InstagramIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
 );
 import { FadeInSection } from '../../components/motion/FadeInSection';
 
@@ -118,7 +118,7 @@ export function AboutPage() {
 
         {/* Content Section */}
         <div className="section-container py-20 md:py-28 max-w-5xl space-y-24 md:space-y-32">
-          
+
           {/* Legacy Story */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
             <div className="lg:col-span-7 space-y-6">
@@ -131,24 +131,24 @@ export function AboutPage() {
                 Every design is a meticulously customized heritage story — woven with gold threads, intricate metallic beads, and fine silks. We operate exclusively by appointment to ensure each bride receives a bespoke, mastercrafted couture experience.
               </p>
             </div>
-            <div className="lg:col-span-5 relative group overflow-hidden border border-white/5">
+            <div className="lg:col-span-5 relative group overflow-hidden border border-white/5 rounded-[24px]">
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full aspect-[4/5] overflow-hidden"
+                className="w-full aspect-[4/5] overflow-hidden rounded-[24px]"
               >
                 <img
                   src="/brand/img1.png"
                   alt="Exotic by Tausif Ahmed Bridal Couture work"
-                  className="w-full h-full object-cover transition-transform duration-700"
+                  className="w-full h-full object-cover transition-transform duration-700 rounded-[24px]"
                 />
               </motion.div>
-              <div className="absolute inset-0 border border-gold/10 pointer-events-none" />
+              <div className="absolute inset-0 border border-gold/10 rounded-[24px] pointer-events-none" />
             </div>
           </div>
 
           {/* 3D Animated Statistics Cards with forced inline margins to prevent overlapping */}
-          <div 
+          <div
             style={{ marginTop: '5rem', marginBottom: '5rem' }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
           >
@@ -163,21 +163,21 @@ export function AboutPage() {
 
           {/* Couture Philosophy & Director's Note */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center pt-12 md:pt-16">
-            <div className="lg:col-span-5 relative group overflow-hidden border border-white/5 order-last lg:order-first">
+            <div className="lg:col-span-5 relative group overflow-hidden border border-white/5 rounded-[24px] order-last lg:order-first">
               <motion.div
                 whileHover={{ scale: 1.03 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full aspect-[4/5] overflow-hidden"
+                className="w-full aspect-[4/5] overflow-hidden rounded-[24px]"
               >
                 <img
                   src="/brand/img5.png"
                   alt="Crafting Details"
-                  className="w-full h-full object-cover transition-transform duration-700"
+                  className="w-full h-full object-cover transition-transform duration-700 rounded-[24px]"
                 />
               </motion.div>
-              <div className="absolute inset-0 border border-gold/10 pointer-events-none" />
+              <div className="absolute inset-0 border border-gold/10 rounded-[24px] pointer-events-none" />
             </div>
-            
+
             <div className="lg:col-span-7 space-y-8">
               <div className="space-y-4">
                 <span className="text-[10px] tracking-[0.25em] text-[#C9A84C] uppercase font-medium">Philosophy</span>
@@ -258,15 +258,15 @@ export function ContactPage() {
         <div className="section-container max-w-5xl">
           {/* Luxury Magazine Layout Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
-            
+
             {/* Left Column: Premium Editorial Image Banner */}
             <div className="lg:col-span-5 relative h-[50vh] lg:h-auto min-h-[400px] rounded-3xl overflow-hidden group shadow-2xl flex flex-col justify-end">
-              <img 
-                src="/brand/img4.png" 
+              <img
+                src="/brand/img4.png"
                 alt="Exotic Bridal Editorial"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               />
-              
+
 
             </div>
 
@@ -317,7 +317,7 @@ export function ContactPage() {
           </div>
 
           {/* Embedded Google Map - Clickable to open in Google Maps */}
-          <motion.a 
+          <motion.a
             href="https://maps.app.goo.gl/TzF3AJPXw1zq1QhC7"
             target="_blank"
             rel="noopener noreferrer"
@@ -441,11 +441,11 @@ export function TermsPage() {
 export function SizeGuidePage() {
   const sizes = [
     { size: 'XS', chest: '32–34', waist: '26–28', hip: '34–36' },
-    { size: 'S',  chest: '34–36', waist: '28–30', hip: '36–38' },
-    { size: 'M',  chest: '36–38', waist: '30–32', hip: '38–40' },
-    { size: 'L',  chest: '38–40', waist: '32–34', hip: '40–42' },
+    { size: 'S', chest: '34–36', waist: '28–30', hip: '36–38' },
+    { size: 'M', chest: '36–38', waist: '30–32', hip: '38–40' },
+    { size: 'L', chest: '38–40', waist: '32–34', hip: '40–42' },
     { size: 'XL', chest: '40–42', waist: '34–36', hip: '42–44' },
-    { size: 'XXL',chest: '42–44', waist: '36–38', hip: '44–46' },
+    { size: 'XXL', chest: '42–44', waist: '36–38', hip: '44–46' },
   ];
 
   return (

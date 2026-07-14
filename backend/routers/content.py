@@ -179,8 +179,16 @@ async def get_upload_url(
     supabase = get_supabase()
     file_path = f"{uuid.uuid4()}/{data.filename}"
     
-    response = supabase.storage.from_(data.bucket).create_signed_upload_url(file_path)
-    
+    try:
+        response = supabase.storage.from_(data.bucket).create_signed_upload_url(file_path)
+    except Exception as err:
+        try:
+            # Attempt to create the public bucket automatically
+            supabase.storage.create_bucket(data.bucket, options={"public": True})
+            response = supabase.storage.from_(data.bucket).create_signed_upload_url(file_path)
+        except Exception:
+            raise err
+            
     public_url = supabase.storage.from_(data.bucket).get_public_url(file_path)
     
     return schemas.UploadUrlResponse(

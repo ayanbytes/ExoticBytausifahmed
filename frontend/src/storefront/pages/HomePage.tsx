@@ -135,13 +135,13 @@ const PLACEHOLDER_PRODUCTS: ProductListItem[] = [
 function HeroSection({ banners }: { banners?: HeroBanner[] }) {
   const slides = banners?.length
     ? banners.map((b, idx) => ({
-        ...b,
-        title: b.title || HERO_SLIDES[idx % HERO_SLIDES.length].title,
-        subtitle: b.subtitle || HERO_SLIDES[idx % HERO_SLIDES.length].subtitle,
-        cta_text: b.cta_text || HERO_SLIDES[idx % HERO_SLIDES.length].cta_text,
-        cta_link: b.cta_link || HERO_SLIDES[idx % HERO_SLIDES.length].cta_link,
-        image_url: b.image_url || HERO_SLIDES[idx % HERO_SLIDES.length].image_url
-      }))
+      ...b,
+      title: b.title || HERO_SLIDES[idx % HERO_SLIDES.length].title,
+      subtitle: b.subtitle || HERO_SLIDES[idx % HERO_SLIDES.length].subtitle,
+      cta_text: b.cta_text || HERO_SLIDES[idx % HERO_SLIDES.length].cta_text,
+      cta_link: b.cta_link || HERO_SLIDES[idx % HERO_SLIDES.length].cta_link,
+      image_url: b.image_url || HERO_SLIDES[idx % HERO_SLIDES.length].image_url
+    }))
     : HERO_SLIDES;
   const [current, setCurrent] = useState(0);
   const intervalRef = useRef<number | undefined>(undefined);
@@ -205,9 +205,9 @@ function HeroSection({ banners }: { banners?: HeroBanner[] }) {
 
               {/* CTA Button */}
               <div className="flex flex-wrap items-center gap-4 mt-8">
-                <Link to="/shop" className="btn-primary">
+                <Link to="/shop" className="btn-primary group">
                   Shop Now
-                  <ArrowRight size={14} />
+                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
               </div>
             </motion.div>
@@ -272,9 +272,9 @@ const PLACEHOLDER_CATEGORIES = [
 function CategoryGrid({ categories }: { categories?: Category[] }) {
   const items = categories?.length
     ? categories.map((cat, idx) => ({
-        ...cat,
-        image_url: cat.image_url || PLACEHOLDER_CATEGORIES[idx % PLACEHOLDER_CATEGORIES.length].image_url
-      }))
+      ...cat,
+      image_url: cat.image_url || PLACEHOLDER_CATEGORIES[idx % PLACEHOLDER_CATEGORIES.length].image_url
+    }))
     : PLACEHOLDER_CATEGORIES;
 
   return (
@@ -290,19 +290,19 @@ function CategoryGrid({ categories }: { categories?: Category[] }) {
             <FadeInSection key={cat.slug} delay={i * 0.08}>
               <Link
                 to={`/shop?category=${cat.slug}`}
-                className="group relative overflow-hidden block"
+                className="group relative overflow-hidden block rounded-[24px] border border-white/5 hover:border-gold/35 shadow-lg transition-all duration-500"
                 style={{ aspectRatio: '3/4' }}
               >
                 <img
                   src={cat.image_url || ''}
                   alt={cat.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105 rounded-[24px]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                  <h3 className="font-serif text-lg sm:text-xl font-light text-white leading-tight">{cat.name}</h3>
-                  <p className="text-label text-[9px] text-gold mt-1.5 flex items-center gap-1">
-                    Shop All <ArrowRight size={10} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent rounded-[24px] pointer-events-none" />
+                <div className="absolute bottom-6 left-6 right-6 z-10">
+                  <h3 className="font-serif text-lg sm:text-xl font-light text-white leading-tight transition-colors duration-300 group-hover:text-gold">{cat.name}</h3>
+                  <p className="text-label text-[9px] text-gold mt-1.5 flex items-center gap-1.5 font-bold">
+                    Shop All <ArrowRight size={10} className="group-hover:translate-x-1 transition-transform duration-300" />
                   </p>
                 </div>
               </Link>
@@ -472,15 +472,15 @@ function SocialStrip() {
               href="https://www.instagram.com/exotic_bytausifahmed/"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative overflow-hidden block group w-44 sm:w-60 md:w-72 flex-shrink-0"
+              className="relative overflow-hidden block group w-44 sm:w-60 md:w-72 flex-shrink-0 rounded-[24px] border border-white/5 hover:border-gold/30 transition-all duration-300 shadow-md"
               style={{ aspectRatio: '1' }}
             >
               <img
                 src={url}
                 alt={`Instagram post ${(i % 6) + 1}`}
-                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105 rounded-[24px]"
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/45 transition-colors duration-300 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/45 transition-colors duration-300 flex items-center justify-center rounded-[24px]">
                 <span className="text-[10px] tracking-widest text-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-sans uppercase">
                   View Post
                 </span>

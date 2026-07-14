@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShoppingBag, Plus, Download, X, Sparkles } from 'lucide-react';
+import { ArrowRight, ShoppingBag, Plus, MessageSquare, X, Sparkles } from 'lucide-react';
 import api from '../../lib/api';
 import { FadeInSection } from '../../components/motion/FadeInSection';
 import type { LookbookCollection, LookbookHotspot, ProductListItem } from '../../types';
@@ -159,19 +159,19 @@ function LookbookImageCard({ image, isLarge = false, onSelectProduct }: Lookbook
 
   return (
     <div
-      className={`relative overflow-hidden group border border-white/5 ${isLarge ? 'row-span-2' : ''}`}
+      className={`relative overflow-hidden group border border-white/5 rounded-[24px] ${isLarge ? 'row-span-2' : ''}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <motion.img
         src={image.url}
         alt={image.alt_text || 'Lookbook image'}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover rounded-[24px]"
         animate={{ scale: hovered ? 1.05 : 1 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         style={{ aspectRatio: isLarge ? '2/3' : '1' }}
       />
-      <div className={`absolute inset-0 bg-black/30 transition-opacity duration-300 ${hovered ? 'opacity-100' : 'opacity-0'}`} />
+      <div className={`absolute inset-0 bg-black/30 transition-opacity duration-300 rounded-[24px] ${hovered ? 'opacity-100' : 'opacity-0'}`} />
 
       {/* Hotspot pins */}
       {image.hotspots?.map((hotspot) => (
@@ -186,7 +186,7 @@ function LookbookImageCard({ image, isLarge = false, onSelectProduct }: Lookbook
           animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 10 }}
           transition={{ duration: 0.3 }}
         >
-          <span className="text-[9px] tracking-widest uppercase bg-gold text-black px-3 py-1.5 flex items-center gap-1.5 font-bold shadow-lg">
+          <span className="text-[9px] tracking-widest uppercase bg-gold text-black px-3.5 py-2 flex items-center gap-1.5 font-bold shadow-lg rounded-[14px]">
             <ShoppingBag size={10} /> Shop the Look
           </span>
         </motion.div>
@@ -265,7 +265,7 @@ export function LookbookPage() {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent z-[2]" />
-        
+
         <div className="relative section-container pb-16 z-10 w-full">
           <FadeInSection className="max-w-2xl text-left">
             <motion.div
@@ -290,9 +290,8 @@ export function LookbookPage() {
                 <button
                   key={collection.id}
                   onClick={() => setActiveCollection(collection.id)}
-                  className={`relative flex-shrink-0 px-8 py-3 rounded-full flex items-center justify-center text-center transition-all duration-500 focus:outline-none cursor-pointer text-[10px] tracking-[0.22em] uppercase font-bold z-10 ${
-                    isActive ? 'text-black font-extrabold' : 'text-cream/60 hover:text-white hover:scale-102'
-                  }`}
+                  className={`relative flex-shrink-0 px-8 py-3 rounded-full flex items-center justify-center text-center transition-all duration-500 focus:outline-none cursor-pointer text-[10px] tracking-[0.22em] uppercase font-bold z-10 ${isActive ? 'text-black font-extrabold' : 'text-cream/60 hover:text-white hover:scale-102'
+                    }`}
                 >
                   {/* Sliding capsule background */}
                   {isActive && (
@@ -326,7 +325,7 @@ export function LookbookPage() {
             <div className="section-container pt-20 pb-16 md:pt-28 md:pb-24">
               {/* Luxury Split Screen Grid */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-                
+
                 {/* Left Panel: Static Description & Notes (Sticky on Desktop) */}
                 <div className="lg:col-span-4 lg:sticky lg:top-40 space-y-8">
                   <div>
@@ -350,14 +349,17 @@ export function LookbookPage() {
                     </p>
                   </div>
 
-                  {/* Elegant PDF Download Button */}
+                  {/* Elegant Request Lookbook Button */}
                   <div className="pt-2">
                     <a
-                      href="/brand/lookbook.pdf"
-                      download="Exotic_Lookbook.pdf"
-                      className="w-full lg:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-transparent border border-[#C9A84C] text-[#C9A84C] text-[10px] tracking-[0.2em] font-bold uppercase hover:bg-[#C9A84C] hover:text-black transition-all duration-300 cursor-pointer shadow-lg"
+                      href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER || '919039624538'}?text=${encodeURIComponent(
+                        `Hello Exotic! I would like to request the lookbook for your latest Couture collections.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full lg:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 bg-transparent border border-[#C9A84C] text-[#C9A84C] text-[10px] tracking-[0.2em] font-bold uppercase hover:bg-[#C9A84C] hover:text-black transition-all duration-300 cursor-pointer shadow-lg rounded-[14px]"
                     >
-                      <Download size={12} /> Download PDF Lookbook
+                      <MessageSquare size={12} /> Request Lookbook
                     </a>
                   </div>
                 </div>

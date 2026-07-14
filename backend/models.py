@@ -142,7 +142,7 @@ class OrderItem(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     order_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
-    product_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("products.id"), nullable=False)
+    product_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("products.id", ondelete="SET NULL"), nullable=True)
     product_name: Mapped[str] = mapped_column(String(200), nullable=False)
     variant_size: Mapped[str | None] = mapped_column(String(50))
     variant_color: Mapped[str | None] = mapped_column(String(50))
@@ -152,7 +152,7 @@ class OrderItem(Base):
     image_url: Mapped[str | None] = mapped_column(String(500))
 
     order: Mapped["Order"] = relationship("Order", back_populates="items")
-    product: Mapped["Product"] = relationship("Product", back_populates="order_items")
+    product: Mapped["Product | None"] = relationship("Product", back_populates="order_items")
 
 
 class LookbookCollection(Base):
@@ -191,7 +191,7 @@ class LookbookHotspot(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     image_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("lookbook_images.id", ondelete="CASCADE"), nullable=False)
-    product_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("products.id"), nullable=False)
+    product_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("products.id", ondelete="CASCADE"), nullable=False)
     x_percent: Mapped[float] = mapped_column(Numeric(5, 2), nullable=False)  # 0-100
     y_percent: Mapped[float] = mapped_column(Numeric(5, 2), nullable=False)  # 0-100
 

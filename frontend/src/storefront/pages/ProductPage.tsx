@@ -182,9 +182,8 @@ export function ProductPage() {
                     <button
                       key={img.id}
                       onClick={() => setSelectedImage(i)}
-                      className={`w-16 h-20 overflow-hidden border-2 transition-colors duration-200 ${
-                        i === selectedImage ? 'border-gold' : 'border-transparent hover:border-ash'
-                      }`}
+                      className={`w-16 h-20 overflow-hidden border-2 transition-colors duration-200 ${i === selectedImage ? 'border-gold' : 'border-transparent hover:border-ash'
+                        }`}
                     >
                       <img src={img.url} alt={img.alt_text || `${product.name} view ${i + 1}`} className="w-full h-full object-cover" />
                     </button>
@@ -233,9 +232,8 @@ export function ProductPage() {
                       <button
                         key={img.id}
                         onClick={() => setSelectedImage(i)}
-                        className={`flex-shrink-0 w-14 h-16 overflow-hidden border-2 transition-colors ${
-                          i === selectedImage ? 'border-gold' : 'border-transparent'
-                        }`}
+                        className={`flex-shrink-0 w-14 h-16 overflow-hidden border-2 transition-colors ${i === selectedImage ? 'border-gold' : 'border-transparent'
+                          }`}
                       >
                         <img src={img.url} alt="" className="w-full h-full object-cover" />
                       </button>
@@ -284,9 +282,8 @@ export function ProductPage() {
                         <button
                           key={color}
                           onClick={() => setSelectedColor(color)}
-                          className={`w-8 h-8 rounded-full border-2 transition-all duration-200 ${
-                            selectedColor === color ? 'border-gold scale-110' : 'border-transparent hover:border-ash'
-                          }`}
+                          className={`w-8 h-8 rounded-full border-2 transition-all duration-200 ${selectedColor === color ? 'border-gold scale-110' : 'border-transparent hover:border-ash'
+                            }`}
                           style={{ backgroundColor: variant?.color_hex || '#888' }}
                           title={color}
                           aria-label={`Color: ${color}`}
@@ -317,13 +314,12 @@ export function ProductPage() {
                           key={size}
                           onClick={() => !outOfStock && setSelectedSize(size)}
                           whileHover={!outOfStock ? { scale: 1.05 } : {}}
-                          className={`w-12 h-12 text-sm border transition-all duration-200 relative ${
-                            selectedSize === size
-                              ? 'border-gold bg-gold text-black font-medium'
-                              : outOfStock
+                          className={`w-12 h-12 text-sm border transition-all duration-200 relative ${selectedSize === size
+                            ? 'border-gold bg-gold text-black font-medium'
+                            : outOfStock
                               ? 'border-graphite text-muted cursor-not-allowed'
                               : 'border-graphite text-silver hover:border-ash cursor-pointer'
-                          }`}
+                            }`}
                           aria-label={`Size ${size}${outOfStock ? ' — Out of stock' : ''}`}
                         >
                           {size}

@@ -8,7 +8,7 @@ import api from '../../lib/api';
 import { useCartStore } from '../../store/cartStore';
 import { FadeInSection } from '../../components/motion/FadeInSection';
 
-const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || '919999999999';
+const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || '919826704113';
 
 type Step = 'details' | 'review' | 'done';
 
@@ -317,7 +317,7 @@ export function CheckoutPage() {
                     <div>
                       <p className="text-sm font-medium text-cream">Order via WhatsApp</p>
                       <p className="text-xs text-silver mt-1">
-                        Clicking below will save your order and open WhatsApp with your order details pre-filled. 
+                        Clicking below will save your order and open WhatsApp with your order details pre-filled.
                         Simply send the message to confirm.
                       </p>
                     </div>
@@ -360,7 +360,7 @@ export function CheckoutPage() {
                 <p className="text-mid mb-2">Order No: <span className="text-gold font-medium">{orderNumber}</span></p>
               )}
               <p className="text-silver max-w-md mx-auto mb-10">
-                Your order has been saved. Please send the WhatsApp message to confirm. 
+                Your order has been saved. Please send the WhatsApp message to confirm.
                 We'll reach out to confirm delivery details.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

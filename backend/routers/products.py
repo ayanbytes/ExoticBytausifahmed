@@ -102,6 +102,7 @@ async def create_product(
         is_published=data.is_published,
         is_featured=data.is_featured,
         is_new_arrival=data.is_new_arrival,
+        total_stock=data.total_stock,
         low_stock_threshold=data.low_stock_threshold,
         size_guide=data.size_guide,
         shipping_info=data.shipping_info,

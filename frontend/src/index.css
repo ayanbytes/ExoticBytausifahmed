@@ -39,7 +39,9 @@
 }
 
 /* ─── Base Styles ────────────────────────────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -85,7 +87,12 @@ body {
 }
 
 /* ─── Typography ─────────────────────────────────────────────────────────────── */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-serif);
   font-weight: 400;
   line-height: 1.1;
@@ -140,24 +147,52 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 2rem;
+  padding: 0.875rem 2.25rem;
   background-color: var(--color-gold);
   color: var(--color-black);
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   text-decoration: none;
-  border: none;
+  border: 1px solid var(--color-gold);
   cursor: pointer;
-  transition: background-color var(--duration-fast) ease, transform var(--duration-fast) ease;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 44px;
+  z-index: 1;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+  transition: all 0.6s ease;
+  z-index: -1;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-gold-light);
-  transform: translateY(-1px);
+  background-color: transparent;
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+  transform: translateY(-2px);
 }
 
 .btn-primary:active {
@@ -169,25 +204,52 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.875rem 2rem;
+  padding: 0.875rem 2.25rem;
   background-color: transparent;
   color: var(--color-cream);
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   text-decoration: none;
   border: 1px solid var(--color-ash);
   cursor: pointer;
-  transition: all var(--duration-fast) ease;
+  border-radius: 14px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 44px;
+  z-index: 1;
+}
+
+.btn-outline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  transition: all 0.6s ease;
+  z-index: -1;
+}
+
+.btn-outline:hover::before {
+  left: 100%;
 }
 
 .btn-outline:hover {
   background-color: var(--color-cream);
   color: var(--color-black);
   border-color: var(--color-cream);
+  box-shadow: 0 0 20px rgba(250, 250, 250, 0.15);
+  transform: translateY(-2px);
 }
 
 .btn-ghost {
@@ -282,8 +344,15 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Skeleton Loading ────────────────────────────────────────────────────────── */
 @keyframes skeleton-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
 }
 
 .skeleton {
@@ -296,7 +365,7 @@ h1, h2, h3, h4, h5, h6 {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(8,8,8,0.7) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(8, 8, 8, 0.7) 0%, transparent 50%);
 }
 
 /* ─── Gold Divider ───────────────────────────────────────────────────────────── */
@@ -308,8 +377,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ─── Marquee ────────────────────────────────────────────────────────────────── */
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .marquee-track {
@@ -414,4 +488,3 @@ body:has(.admin-suite),
 .admin-suite ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gold-muted);
 }
-

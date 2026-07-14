@@ -22,13 +22,13 @@ export function Navbar() {
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
     const handleResize = () => setIsMobile(window.innerWidth < 768);
-    
+
     handleScroll();
     handleResize();
-    
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
@@ -55,9 +55,9 @@ export function Navbar() {
             to="/"
             className="flex items-center gap-2.5 md:gap-3 select-none group"
           >
-            <img 
-              src="/brand/logo.png" 
-              alt="Exotic Logo" 
+            <img
+              src="/brand/logo.png"
+              alt="Exotic Logo"
               className="h-9 md:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
             <div className="flex flex-col justify-center">
@@ -175,19 +175,17 @@ export function Navbar() {
                           <span className="font-sans text-[9px] tracking-widest text-[#C9A84C] font-semibold mr-3 select-none opacity-85">
                             0{i + 1}
                           </span>
-                          
+
                           {/* Label */}
-                          <span className={`font-serif text-2xl font-light tracking-wide transition-all duration-500 ${
-                            isActive ? 'text-[#C9A84C] scale-105' : 'text-cream/90 group-hover:text-[#C9A84C] group-hover:scale-103'
-                          }`}>
+                          <span className={`font-serif text-2xl font-light tracking-wide transition-all duration-500 ${isActive ? 'text-[#C9A84C] scale-105' : 'text-cream/90 group-hover:text-[#C9A84C] group-hover:scale-103'
+                            }`}>
                             {link.label}
                           </span>
-                          
+
                           {/* Centered sweeping thin underline */}
                           <motion.div
-                            className={`absolute -bottom-1 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent origin-center transition-transform duration-500 ${
-                              isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-75'
-                            }`}
+                            className={`absolute -bottom-1 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent origin-center transition-transform duration-500 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-75'
+                              }`}
                           />
                         </div>
                       )}

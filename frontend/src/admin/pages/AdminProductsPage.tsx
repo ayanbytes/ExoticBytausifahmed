@@ -26,6 +26,7 @@ function ImageUploader({ images, onImagesChange }: {
 }) {
   const [dragging, setDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [manualUrl, setManualUrl] = useState('');
 
   const handleFiles = useCallback(async (files: FileList) => {
     setUploading(true);
@@ -66,6 +67,23 @@ function ImageUploader({ images, onImagesChange }: {
     e.preventDefault();
     setDragging(false);
     handleFiles(e.dataTransfer.files);
+  };
+
+  const handleAddManualUrl = () => {
+    if (manualUrl.trim()) {
+      onImagesChange([
+        ...images,
+        {
+          url: manualUrl.trim(),
+          file_name: manualUrl.split('/').pop() || 'image.png',
+          is_primary: images.length === 0,
+          is_hover: false,
+          alt_text: '',
+        },
+      ]);
+      setManualUrl('');
+      toast.success('Image URL added!');
+    }
   };
 
   const setPrimary = (idx: number) => {
@@ -114,6 +132,24 @@ function ImageUploader({ images, onImagesChange }: {
             <p className="text-[9px] text-mid/80 font-sans tracking-wide">WEBP, JPG, PNG formats up to 10MB</p>
           </div>
         )}
+      </div>
+
+      {/* Manual URL input fallback */}
+      <div className="flex gap-2 items-center">
+        <input
+          type="text"
+          placeholder="Or paste direct image URL (e.g., /brand/img1.png or Unsplash URL)"
+          value={manualUrl}
+          onChange={(e) => setManualUrl(e.target.value)}
+          className="input-standard flex-1 text-xs py-2.5 px-3 rounded-[14px]"
+        />
+        <button
+          type="button"
+          onClick={handleAddManualUrl}
+          className="btn-primary !min-height-0 !py-2 px-4 text-[10px] tracking-wider rounded-[14px]"
+        >
+          Add URL
+        </button>
       </div>
 
       {/* Image previews */}
@@ -182,6 +218,8 @@ interface ProductFormData {
   size_guide: string;
   shipping_info: string;
   return_policy: string;
+  total_stock: string;
+  low_stock_threshold: string;
 }
 
 function ProductModal({ product, categories, onClose }: {
@@ -206,6 +244,8 @@ function ProductModal({ product, categories, onClose }: {
     size_guide: product?.size_guide || '',
     shipping_info: product?.shipping_info || '',
     return_policy: product?.return_policy || '',
+    total_stock: product?.total_stock?.toString() || '10',
+    low_stock_threshold: product?.low_stock_threshold?.toString() || '2',
   });
 
   const [images, setImages] = useState<UploadedImage[]>(
@@ -237,6 +277,8 @@ function ProductModal({ product, categories, onClose }: {
         size_guide: data.size_guide || undefined,
         shipping_info: data.shipping_info || undefined,
         return_policy: data.return_policy || undefined,
+        total_stock: parseInt(data.total_stock) || 0,
+        low_stock_threshold: parseInt(data.low_stock_threshold) || 0,
       };
 
       let saved: Product;
@@ -303,87 +345,142 @@ function ProductModal({ product, categories, onClose }: {
           {/* Basic info */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">Product Name *</label>
+              <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Product Name *</label>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value, slug: autoSlug(e.target.value) })}
-                className="input-standard w-full"
+                className="input-standard w-full text-sm font-medium"
                 required
               />
             </div>
             <div>
-              <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">URL Slug *</label>
+              <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">URL Slug *</label>
               <input
                 type="text"
                 value={form.slug}
                 onChange={(e) => setForm({ ...form, slug: e.target.value })}
-                className="input-standard w-full font-mono text-xs"
+                className="input-standard w-full font-mono text-sm"
                 required
               />
             </div>
           </div>
 
           <div>
-            <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">Editorial Description</label>
+            <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Editorial Description</label>
             <textarea
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
-              className="input-standard w-full resize-none"
+              className="input-standard w-full resize-none text-sm leading-relaxed"
               rows={4}
             />
           </div>
 
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">Price (₹) *</label>
+              <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Price (₹) *</label>
               <input
                 type="number"
                 step="0.01"
                 value={form.price}
                 onChange={(e) => setForm({ ...form, price: e.target.value })}
-                className="input-standard w-full"
+                className="input-standard w-full text-sm font-semibold text-gold"
                 required
               />
             </div>
             <div>
-              <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">Compare At (₹)</label>
+              <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Compare At (₹)</label>
               <input
                 type="number"
                 step="0.01"
                 value={form.compare_at_price}
                 onChange={(e) => setForm({ ...form, compare_at_price: e.target.value })}
-                className="input-standard w-full"
+                className="input-standard w-full text-sm font-semibold"
               />
             </div>
             <div>
-              <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">Category</label>
+              <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Category</label>
               <select
                 value={form.category_id}
                 onChange={(e) => setForm({ ...form, category_id: e.target.value })}
-                className="input-standard w-full py-2"
+                className="input-standard w-full py-2 text-sm"
               >
-                <option value="">None</option>
+                <option value="" className="bg-[#0D0D0D]">None</option>
                 {categories.map((c) => (
-                  <option key={c.id} value={c.id}>{c.name}</option>
+                  <option key={c.id} value={c.id} className="bg-[#0D0D0D]">{c.name}</option>
                 ))}
               </select>
             </div>
           </div>
 
           <div>
-            <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">Tags (comma-separated)</label>
+            <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Tags (comma-separated)</label>
             <input
               type="text"
               value={form.tags}
               onChange={(e) => setForm({ ...form, tags: e.target.value })}
-              className="input-standard w-full"
+              className="input-standard w-full text-sm"
               placeholder="minimalist, luxury, summer-collection"
             />
           </div>
 
+          {/* Stock Quantities */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Stock Quantity</label>
+              <div className="flex items-center border border-white/10 bg-black/45 rounded-lg overflow-hidden h-[44px] w-36">
+                <button
+                  type="button"
+                  onClick={() => setForm(f => ({ ...f, total_stock: Math.max(0, parseInt(f.total_stock || '0') - 1).toString() }))}
+                  className="w-12 h-full flex items-center justify-center hover:text-gold hover:bg-white/5 transition-colors font-bold text-lg cursor-pointer border-r border-white/10 text-cream"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  value={form.total_stock}
+                  onChange={(e) => setForm({ ...form, total_stock: e.target.value })}
+                  className="w-12 text-center bg-transparent text-sm font-bold text-cream focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => setForm(f => ({ ...f, total_stock: (parseInt(f.total_stock || '0') + 1).toString() }))}
+                  className="w-12 h-full flex items-center justify-center hover:text-gold hover:bg-white/5 transition-colors font-bold text-lg cursor-pointer border-l border-white/10 text-cream"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Low Stock Alert Limit</label>
+              <div className="flex items-center border border-white/10 bg-black/45 rounded-lg overflow-hidden h-[44px] w-36">
+                <button
+                  type="button"
+                  onClick={() => setForm(f => ({ ...f, low_stock_threshold: Math.max(0, parseInt(f.low_stock_threshold || '0') - 1).toString() }))}
+                  className="w-12 h-full flex items-center justify-center hover:text-gold hover:bg-white/5 transition-colors font-bold text-lg cursor-pointer border-r border-white/10 text-cream"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  value={form.low_stock_threshold}
+                  onChange={(e) => setForm({ ...form, low_stock_threshold: e.target.value })}
+                  className="w-12 text-center bg-transparent text-sm font-bold text-cream focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+                <button
+                  type="button"
+                  onClick={() => setForm(f => ({ ...f, low_stock_threshold: (parseInt(f.low_stock_threshold || '0') + 1).toString() }))}
+                  className="w-12 h-full flex items-center justify-center hover:text-gold hover:bg-white/5 transition-colors font-bold text-lg cursor-pointer border-l border-white/10 text-cream"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+
           {/* Toggles */}
-          <div className="flex flex-wrap gap-6 py-2 border-y border-white/5 bg-white/[0.01] px-4 rounded-sm">
+          <div className="flex flex-wrap gap-6 py-3 border-y border-white/5 bg-white/[0.01] px-4 rounded-[14px]">
             {[
               { key: 'is_published' as const, label: 'Published' },
               { key: 'is_featured' as const, label: 'Featured Piece' },
@@ -396,35 +493,35 @@ function ProductModal({ product, categories, onClose }: {
                 >
                   <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform duration-250 ${form[key] ? 'translate-x-4.5' : 'translate-x-0.5'}`} />
                 </div>
-                <span className="text-[10px] uppercase tracking-widest text-silver font-sans font-medium">{label}</span>
+                <span className="text-xs uppercase tracking-wider text-silver font-sans font-semibold">{label}</span>
               </label>
             ))}
           </div>
 
           {/* Images */}
           <div>
-            <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">Media Gallery</label>
+            <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Media Gallery</label>
             <ImageUploader images={images} onImagesChange={setImages} />
           </div>
 
           {/* Details sections */}
-          <details className="border border-white/5 bg-black/20 rounded p-4 group transition-colors duration-300">
-            <summary className="text-[10px] text-mid uppercase tracking-widest cursor-pointer select-none font-medium flex items-center justify-between">
+          <details className="border border-white/5 bg-black/20 rounded-[20px] p-4 group transition-colors duration-300">
+            <summary className="text-xs text-ash uppercase tracking-wider cursor-pointer select-none font-semibold flex items-center justify-between">
               <span>Size Guide, Shipping & Returns</span>
               <ChevronRight size={12} className="transform group-open:rotate-90 transition-transform duration-200" />
             </summary>
             <div className="space-y-4 mt-5">
               <div>
-                <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">Size Guide Description</label>
-                <textarea value={form.size_guide} onChange={(e) => setForm({ ...form, size_guide: e.target.value })} className="input-standard w-full text-xs resize-none" rows={3} />
+                <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Size Guide Description</label>
+                <textarea value={form.size_guide} onChange={(e) => setForm({ ...form, size_guide: e.target.value })} className="input-standard w-full text-sm resize-none" rows={3} />
               </div>
               <div>
-                <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">Shipping Logistics</label>
-                <textarea value={form.shipping_info} onChange={(e) => setForm({ ...form, shipping_info: e.target.value })} className="input-standard w-full text-xs resize-none" rows={2} />
+                <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Shipping Logistics</label>
+                <textarea value={form.shipping_info} onChange={(e) => setForm({ ...form, shipping_info: e.target.value })} className="input-standard w-full text-sm resize-none" rows={2} />
               </div>
               <div>
-                <label className="text-[10px] text-mid uppercase tracking-widest block mb-2 font-medium">Return Policy Details</label>
-                <textarea value={form.return_policy} onChange={(e) => setForm({ ...form, return_policy: e.target.value })} className="input-standard w-full text-xs resize-none" rows={2} />
+                <label className="text-xs text-ash uppercase tracking-wider block mb-2 font-semibold">Return Policy Details</label>
+                <textarea value={form.return_policy} onChange={(e) => setForm({ ...form, return_policy: e.target.value })} className="input-standard w-full text-sm resize-none" rows={2} />
               </div>
             </div>
           </details>

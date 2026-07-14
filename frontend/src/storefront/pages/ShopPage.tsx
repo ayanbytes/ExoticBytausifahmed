@@ -184,8 +184,8 @@ export function ShopPage() {
                 key={size}
                 onClick={() => toggleSize(size)}
                 className={`py-2 text-[11px] font-sans font-semibold text-center border transition-all duration-200 cursor-pointer ${isSelected
-                    ? 'border-[#C9A84C] text-[#C9A84C] bg-[#C9A84C]/5'
-                    : 'border-[#2A2A2A] text-silver hover:border-[#6B6B6B]'
+                  ? 'border-[#C9A84C] text-[#C9A84C] bg-[#C9A84C]/5'
+                  : 'border-[#2A2A2A] text-silver hover:border-[#6B6B6B]'
                   }`}
               >
                 {size}
@@ -345,7 +345,7 @@ export function ShopPage() {
               exit={{ opacity: 0 }}
               onClick={() => setMobileFiltersOpen(false)}
             />
-             <motion.div
+            <motion.div
               className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-[#080808] flex flex-col border-l border-[#1A1A1A] shadow-2xl"
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
@@ -381,7 +381,7 @@ export function ShopPage() {
                 <FiltersPanel />
               </div>
               <div className="px-8 py-6 border-t border-[#1A1A1A]">
-                <button 
+                <button
                   className="w-full py-3.5 bg-[#C9A84C] text-black text-[11px] font-bold tracking-wider text-center uppercase transition-colors duration-200 hover:bg-[#E0C47A] cursor-pointer"
                   onClick={() => setMobileFiltersOpen(false)}
                 >
