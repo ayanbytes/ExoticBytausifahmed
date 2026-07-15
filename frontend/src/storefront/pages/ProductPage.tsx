@@ -98,7 +98,7 @@ export function ProductPage() {
       const res = await api.get('/products', {
         params: { category: product?.category?.slug, limit: 10 },
       });
-      let list = res.data.filter((p: ProductListItem) => p.id !== product?.id);
+      let list: ProductListItem[] = res.data.filter((p: ProductListItem) => p.id !== product?.id);
       
       // 2. If list is less than 4, fetch general products to fill the container
       if (list.length < 4) {
@@ -106,7 +106,7 @@ export function ProductPage() {
         const fallbackList = fallbackRes.data.filter((p: ProductListItem) => p.id !== product?.id);
         
         for (const item of fallbackList) {
-          if (!list.some((existing) => existing.id === item.id)) {
+          if (!list.some((existing: ProductListItem) => existing.id === item.id)) {
             list.push(item);
           }
           if (list.length >= 4) break;
