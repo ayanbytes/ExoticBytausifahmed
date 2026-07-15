@@ -192,7 +192,7 @@ async def get_upload_url(
     public_url = supabase.storage.from_(data.bucket).get_public_url(file_path)
     
     return schemas.UploadUrlResponse(
-        upload_url=response["signedURL"],
+        upload_url=response.get("signed_url") or response.get("signedURL") or "",
         public_url=public_url,
         path=file_path,
     )

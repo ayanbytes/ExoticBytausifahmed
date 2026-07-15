@@ -40,13 +40,24 @@ function FilterSection({ title, children, defaultOpen = true }: {
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="border-b border-graphite pb-4 mb-4">
+    <div 
+      style={{ marginBottom: '16px' }}
+      className={`transition-all duration-300 rounded-xl border ${
+        open 
+          ? 'bg-white/[0.03] border-[#C9A84C]/20 shadow-[0_8px_32px_rgba(201,168,76,0.03)]' 
+          : 'bg-white/[0.01] border-white/5 hover:border-white/10 hover:bg-white/[0.02]'
+      }`}
+    >
       <button
-        className="flex items-center justify-between w-full py-2 text-left"
+        className="flex items-center justify-between w-full px-5 py-4 text-left cursor-pointer group"
         onClick={() => setOpen(!open)}
       >
-        <span className="text-label text-xs text-ash">{title}</span>
-        {open ? <ChevronUp size={14} className="text-mid" /> : <ChevronDown size={14} className="text-mid" />}
+        <span className={`font-sans text-xs md:text-sm font-semibold tracking-[0.2em] uppercase transition-colors duration-300 ${
+          open ? 'text-[#C9A84C]' : 'text-cream'
+        }`}>{title}</span>
+        <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.25 }}>
+          <ChevronDown size={16} className={`${open ? 'text-[#C9A84C]' : 'text-mid'} transition-colors duration-300`} />
+        </motion.div>
       </button>
       <AnimatePresence>
         {open && (
@@ -54,10 +65,10 @@ function FilterSection({ title, children, defaultOpen = true }: {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="pt-3">{children}</div>
+            <div className="px-5 pb-5 pt-1 text-xs text-silver leading-relaxed font-light font-sans">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -149,7 +160,7 @@ export function ShopPage() {
         <div className="flex flex-col gap-3">
           <button
             onClick={() => { const p = new URLSearchParams(searchParams); p.delete('category'); setSearchParams(p); }}
-            className="flex items-center gap-2.5 text-xs text-left transition-colors cursor-pointer group text-silver hover:text-cream"
+            className="flex items-center gap-2.5 text-xs md:text-sm text-left transition-colors cursor-pointer group text-silver hover:text-cream"
           >
             <span className={`w-3.5 h-3.5 border flex items-center justify-center transition-all ${!category ? 'border-[#C9A84C] bg-[#C9A84C]' : 'border-muted group-hover:border-mid'}`}>
               {!category && <span className="w-1.5 h-1.5 bg-black" />}
@@ -162,7 +173,7 @@ export function ShopPage() {
               <button
                 key={cat.slug}
                 onClick={() => setSearchParams({ ...Object.fromEntries(searchParams), category: cat.slug })}
-                className="flex items-center gap-2.5 text-xs text-left transition-colors cursor-pointer group text-silver hover:text-cream"
+                className="flex items-center gap-2.5 text-xs md:text-sm text-left transition-colors cursor-pointer group text-silver hover:text-cream"
               >
                 <span className={`w-3.5 h-3.5 border flex items-center justify-center transition-all ${isSelected ? 'border-[#C9A84C] bg-[#C9A84C]' : 'border-muted group-hover:border-mid'}`}>
                   {isSelected && <span className="w-1.5 h-1.5 bg-black" />}
@@ -183,7 +194,7 @@ export function ShopPage() {
               <button
                 key={size}
                 onClick={() => toggleSize(size)}
-                className={`py-2 text-[11px] font-sans font-semibold text-center border transition-all duration-200 cursor-pointer ${isSelected
+                className={`py-2.5 text-xs md:text-sm font-sans font-semibold text-center border transition-all duration-200 cursor-pointer ${isSelected
                   ? 'border-[#C9A84C] text-[#C9A84C] bg-[#C9A84C]/5'
                   : 'border-[#2A2A2A] text-silver hover:border-[#6B6B6B]'
                   }`}
@@ -212,7 +223,7 @@ export function ShopPage() {
               }}
             />
           </div>
-          <div className="flex justify-between text-[11px] font-sans text-muted">
+          <div className="flex justify-between text-xs md:text-sm font-sans text-muted">
             <span>₹1,000</span>
             <span className="text-[#C9A84C] font-semibold">Max: ₹{Number(filters.maxPrice || 300000).toLocaleString('en-IN')}</span>
             <span>₹3,00,000</span>
@@ -220,12 +231,13 @@ export function ShopPage() {
         </div>
       </FilterSection>
 
-      <button
+      <motion.button
+        whileTap={{ scale: 0.98 }}
         onClick={clearFilters}
-        className="w-full py-3 bg-[#C9A84C] text-black text-[11px] font-bold tracking-wider text-center uppercase mt-6 transition-colors duration-200 hover:bg-[#E0C47A] cursor-pointer"
+        className="w-full h-12 bg-[#C9A84C] hover:bg-[#d8b95c] text-black text-xs md:text-sm font-bold tracking-[0.2em] text-center uppercase mt-6 transition-all duration-300 rounded-lg shadow-lg shadow-[#C9A84C]/10 cursor-pointer flex items-center justify-center"
       >
         Clear Filters
-      </button>
+      </motion.button>
     </div>
   );
 
@@ -262,10 +274,10 @@ export function ShopPage() {
               {/* Sort + Mobile Filter Controls */}
               <div className="flex items-center justify-between mb-8 gap-4">
                 <button
-                  className="lg:hidden btn-outline !py-2 !px-4 flex items-center gap-2"
+                  className="lg:hidden flex items-center gap-2 text-[11px] tracking-[0.2em] font-semibold uppercase text-silver hover:text-gold transition-colors cursor-pointer bg-transparent border-none outline-none py-2"
                   onClick={() => setMobileFiltersOpen(true)}
                 >
-                  <SlidersHorizontal size={14} />
+                  <SlidersHorizontal size={13} className="text-silver hover:text-gold transition-colors" />
                   Filters {hasFilters && `(${filters.sizes.length})`}
                 </button>
 

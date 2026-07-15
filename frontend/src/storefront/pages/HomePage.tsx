@@ -260,59 +260,7 @@ function MarqueeStrip() {
   );
 }
 
-// ─── Category Grid ─────────────────────────────────────────────────────────────
-
-const PLACEHOLDER_CATEGORIES = [
-  { name: 'Bridal Wear', slug: 'bridal-wear', image_url: '/brand/img3.png' },
-  { name: 'Luxury Ethnic', slug: 'luxury-ethnic', image_url: '/brand/img2.png' },
-  { name: 'Bespoke Jewellery', slug: 'jewellery', image_url: '/brand/img4.png' },
-  { name: 'Accessories', slug: 'accessories', image_url: '/brand/img5.png' },
-];
-
-function CategoryGrid({ categories }: { categories?: Category[] }) {
-  const items = categories?.length
-    ? categories.map((cat, idx) => ({
-      ...cat,
-      image_url: cat.image_url || PLACEHOLDER_CATEGORIES[idx % PLACEHOLDER_CATEGORIES.length].image_url
-    }))
-    : PLACEHOLDER_CATEGORIES;
-
-  return (
-    <section className="section-py bg-charcoal">
-      <div className="section-container">
-        <FadeInSection className="text-center" style={{ marginBottom: '3rem' }}>
-          <p className="text-label text-gold text-xs mb-3">Curated for you</p>
-          <h2 className="text-headline">Shop by Category</h2>
-        </FadeInSection>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          {items.map((cat, i) => (
-            <FadeInSection key={cat.slug} delay={i * 0.08}>
-              <Link
-                to={`/shop?category=${cat.slug}`}
-                className="group relative overflow-hidden block rounded-[24px] border border-white/5 hover:border-gold/35 shadow-lg transition-all duration-500"
-                style={{ aspectRatio: '3/4' }}
-              >
-                <img
-                  src={cat.image_url || ''}
-                  alt={cat.name}
-                  className="w-full h-full object-cover transition-transform duration-[1.2s] group-hover:scale-105 rounded-[24px]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent rounded-[24px] pointer-events-none" />
-                <div className="absolute bottom-6 left-6 right-6 z-10">
-                  <h3 className="font-serif text-lg sm:text-xl font-light text-white leading-tight transition-colors duration-300 group-hover:text-gold">{cat.name}</h3>
-                  <p className="text-label text-[9px] text-gold mt-1.5 flex items-center gap-1.5 font-bold">
-                    Shop All <ArrowRight size={10} className="group-hover:translate-x-1 transition-transform duration-300" />
-                  </p>
-                </div>
-              </Link>
-            </FadeInSection>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+// Category Grid has been replaced by the custom ExoticEditorialGrid component.
 
 // ─── New Arrivals ─────────────────────────────────────────────────────────────
 
@@ -364,6 +312,123 @@ function NewArrivals({ products }: { products?: ProductListItem[]; isLoading?: b
 
 // ─── Featured Products ─────────────────────────────────────────────────────────
 
+// ─── Exotic Editorial Grid ───────────────────────────────────────────────────
+
+function ExoticEditorialGrid() {
+  const items = [
+    {
+      title: 'ALL PRODUCT',
+      link: '/shop',
+      image: '/brand/img1_enhanced.png',
+      delay: 0,
+    },
+    {
+      title: 'CO-ORD SET',
+      link: '/shop?category=co-ord-sets',
+      image: '/brand/img3.png',
+      delay: 0.1,
+    },
+    {
+      title: 'NEW PRODUCTS',
+      link: '/shop?new=true',
+      image: '/brand/img2_enhanced.png',
+      delay: 0.2,
+    },
+    {
+      title: '3-PIECE SUIT',
+      link: '/shop?category=3-piece-suits',
+      image: '/brand/creamish_bridal.png',
+      delay: 0.3,
+    },
+  ];
+
+  return (
+    <section className="relative w-full bg-black section-py overflow-hidden">
+      <div className="section-container max-w-6xl mx-auto px-4">
+        <div className="relative grid grid-cols-2 gap-2 md:gap-3 bg-neutral-900/40 p-2 md:p-3 rounded-[32px] overflow-hidden border border-white/5">
+          {items.map((item, idx) => (
+            <FadeInSection key={idx} delay={item.delay} className="w-full">
+              <Link
+                to={item.link}
+                className="group relative block w-full overflow-hidden rounded-[20px] aspect-[4/5] sm:aspect-square md:aspect-[4/3] lg:aspect-[16/11]"
+              >
+                {/* Background image with zoom */}
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.5s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                  style={{ backgroundImage: `url(${item.image})` }}
+                />
+                
+                {/* Overlay gradient for premium feel and text contrast */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/20 transition-opacity duration-500 group-hover:opacity-90" />
+                
+                {/* Centered Content */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 z-10">
+                  <h3 className="font-serif text-lg sm:text-2xl md:text-3xl lg:text-4xl text-white font-light tracking-[0.15em] mb-1.5 md:mb-3 transition-colors duration-300 group-hover:text-gold">
+                    {item.title}
+                  </h3>
+                  <span className="font-sans text-[10px] md:text-xs tracking-[0.25em] text-white/70 uppercase font-semibold relative after:absolute after:bottom-[-4px] after:left-1/2 after:-translate-x-1/2 after:w-4 after:h-[1px] after:bg-gold after:transition-all after:duration-300 group-hover:after:w-8 group-hover:text-white">
+                    EXPLORE
+                  </span>
+                </div>
+              </Link>
+            </FadeInSection>
+          ))}
+
+          {/* Central Monogram Overlay */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none select-none">
+            <div className="relative flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full bg-black/40 backdrop-blur-[4px] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+              <svg
+                width="100%"
+                height="100%"
+                viewBox="0 0 100 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
+              >
+                {/* Intertwined elegant serif E and X */}
+                <text
+                  x="38"
+                  y="58"
+                  fill="url(#goldGradient)"
+                  className="font-serif italic font-light"
+                  style={{
+                    fontSize: '44px',
+                    fontFamily: "var(--font-serif), 'Cormorant Garamond', serif",
+                    textAnchor: 'middle',
+                  }}
+                >
+                  E
+                </text>
+                <text
+                  x="62"
+                  y="70"
+                  fill="#FAFAFA"
+                  className="font-serif italic font-light"
+                  style={{
+                    fontSize: '44px',
+                    fontFamily: "var(--font-serif), 'Cormorant Garamond', serif",
+                    textAnchor: 'middle',
+                  }}
+                >
+                  X
+                </text>
+                <defs>
+                  <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#E0C47A" />
+                    <stop offset="100%" stopColor="#A07832" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Featured Products (Restored) ─────────────────────────────────────────────
+
 function FeaturedProducts({ products }: { products?: ProductListItem[] }) {
   if (!products?.length) return null;
   const [featured, ...rest] = products;
@@ -402,6 +467,7 @@ function FeaturedProducts({ products }: { products?: ProductListItem[] }) {
     </section>
   );
 }
+
 
 // ─── Editorial Banner ─────────────────────────────────────────────────────────
 
@@ -501,10 +567,7 @@ export function HomePage() {
     queryFn: () => api.get('/content/banners').then((r) => r.data),
   });
 
-  const { data: categories } = useQuery<Category[]>({
-    queryKey: ['categories'],
-    queryFn: () => api.get('/categories').then((r) => r.data),
-  });
+
 
   const { data: newArrivals, isLoading: loadingNew } = useQuery<ProductListItem[]>({
     queryKey: ['products', 'new-arrivals'],
@@ -535,7 +598,7 @@ export function HomePage() {
 
       <HeroSection banners={banners} />
       <MarqueeStrip />
-      <CategoryGrid categories={categories} />
+      <ExoticEditorialGrid />
       <NewArrivals products={newArrivals && newArrivals.length > 0 ? newArrivals : PLACEHOLDER_PRODUCTS} isLoading={loadingNew} />
       <FeaturedProducts products={featured && featured.length > 0 ? featured : PLACEHOLDER_PRODUCTS.slice(0, 4)} />
       <EditorialBanner />

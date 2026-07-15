@@ -617,13 +617,13 @@ export function AdminProductsPage() {
         </div>
 
         {/* Table Listing */}
-        <div className="backdrop-blur-md bg-charcoal/20 border border-white/5 rounded shadow-xl overflow-hidden">
+        <div className="backdrop-blur-md bg-charcoal/20 border border-white/5 rounded-xl shadow-xl overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead>
-                <tr className="border-b border-white/5 bg-black/25">
+                <tr className="border-b border-white/5 bg-black/35">
                   {['Product Piece', 'Curated Price', 'Inventory', 'Status', 'Actions'].map((h) => (
-                    <th key={h} className="text-left px-6 py-4 text-[9px] uppercase tracking-widest font-sans font-medium text-mid">{h}</th>
+                    <th key={h} className="text-left px-8 py-5 text-[11px] uppercase tracking-[0.2em] font-sans font-semibold text-mid">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -632,19 +632,19 @@ export function AdminProductsPage() {
                   Array.from({ length: 5 }).map((_, i) => (
                     <tr key={i}>
                       {Array.from({ length: 5 }).map((_, j) => (
-                        <td key={j} className="px-6 py-5"><div className="skeleton h-4 w-24 rounded-sm" /></td>
+                        <td key={j} className="px-8 py-6"><div className="skeleton h-5 w-28 rounded-sm" /></td>
                       ))}
                     </tr>
                   ))
                 ) : filtered?.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-6 py-20 text-center border-none">
-                      <div className="max-w-md mx-auto space-y-4">
-                        <div className="w-12 h-12 bg-white/[0.02] border border-white/5 rounded-full flex items-center justify-center mx-auto text-mid/60">
-                          <Search size={18} />
+                    <td colSpan={5} className="px-8 py-24 text-center border-none">
+                      <div className="max-w-md mx-auto space-y-5">
+                        <div className="w-14 h-14 bg-white/[0.02] border border-white/5 rounded-full flex items-center justify-center mx-auto text-mid/60">
+                          <Search size={22} />
                         </div>
-                        <h3 className="font-serif text-lg text-cream">No curated items found</h3>
-                        <p className="text-xs text-mid leading-relaxed">No products match your search criteria. Try modifying your search or add a new piece to the collection.</p>
+                        <h3 className="font-serif text-xl text-cream">No curated items found</h3>
+                        <p className="text-sm text-mid leading-relaxed">No products match your search criteria. Try modifying your search or add a new piece to the collection.</p>
                       </div>
                     </td>
                   </tr>
@@ -652,39 +652,39 @@ export function AdminProductsPage() {
                   const primaryImg = product.images.find((i) => i.is_primary) || product.images[0];
                   const isLowStock = product.total_stock <= product.low_stock_threshold;
                   return (
-                    <tr key={product.id} className="hover:bg-white/[0.01] transition-colors cursor-pointer group">
-                      <td className="px-6 py-4.5">
-                        <div className="flex items-center gap-4">
-                          <div className="w-10 h-13 bg-white/[0.02] border border-white/5 flex-shrink-0 overflow-hidden rounded-sm relative shadow-md">
+                    <tr key={product.id} className="hover:bg-white/[0.015] transition-colors cursor-pointer group">
+                      <td className="px-8 py-5.5">
+                        <div className="flex items-center gap-5">
+                          <div className="w-12 h-16 bg-white/[0.02] border border-white/5 flex-shrink-0 overflow-hidden rounded-md relative shadow-md">
                             {primaryImg ? (
                               <img src={primaryImg.url} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                            ) : <ImageIcon size={15} className="text-mid m-auto mt-4" />}
+                            ) : <ImageIcon size={18} className="text-mid m-auto mt-5" />}
                           </div>
                           <div>
-                            <p className="text-cream text-xs font-semibold font-sans">{product.name}</p>
-                            <p className="text-[9px] uppercase tracking-wider text-mid font-medium font-sans mt-0.5">{product.category?.name || 'Unassigned'}</p>
+                            <p className="text-cream text-sm font-semibold font-sans tracking-wide">{product.name}</p>
+                            <p className="text-[10px] uppercase tracking-[0.15em] text-mid font-semibold font-sans mt-1">{product.category?.name || 'Unassigned'}</p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4.5">
-                        <span className="text-cream text-xs font-medium font-mono">₹{product.price.toLocaleString('en-IN')}</span>
+                      <td className="px-8 py-5.5">
+                        <span className="text-cream text-sm font-medium font-mono">₹{product.price.toLocaleString('en-IN')}</span>
                         {product.compare_at_price && (
-                          <span className="ml-2 text-mid text-[11px] line-through font-mono">₹{product.compare_at_price.toLocaleString('en-IN')}</span>
+                          <span className="ml-2.5 text-mid text-[12px] line-through font-mono">₹{product.compare_at_price.toLocaleString('en-IN')}</span>
                         )}
                       </td>
-                      <td className="px-6 py-4.5">
-                        <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] border font-medium ${isLowStock ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-green-500/10 text-green-400 border-green-500/20'}`}>
-                          <span className={`w-1 h-1 rounded-full bg-current ${isLowStock ? 'animate-pulse' : ''}`} />
+                      <td className="px-8 py-5.5">
+                        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] border font-medium ${isLowStock ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-green-500/10 text-green-400 border-green-500/20'}`}>
+                          <span className={`w-1.5 h-1.5 rounded-full bg-current ${isLowStock ? 'animate-pulse' : ''}`} />
                           <span>{product.total_stock} Units</span>
                         </span>
                       </td>
-                      <td className="px-6 py-4.5">
+                      <td className="px-8 py-5.5">
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
                             togglePublish.mutate({ id: product.id, published: !product.is_published });
                           }}
-                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[9px] uppercase tracking-widest font-sans border font-semibold transition-all duration-200 ${
+                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] uppercase tracking-widest font-sans border font-semibold transition-all duration-200 ${
                             product.is_published
                               ? 'bg-green-500/10 text-green-400 border-green-500/20 hover:bg-green-500/20'
                               : 'bg-white/5 text-mid border-white/10 hover:bg-white/10 hover:text-cream'
@@ -694,25 +694,25 @@ export function AdminProductsPage() {
                           <span>{product.is_published ? 'Published' : 'Draft'}</span>
                         </button>
                       </td>
-                      <td className="px-6 py-4.5">
-                        <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+                      <td className="px-8 py-5.5">
+                        <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                           <button
                             onClick={() => { setModalProduct(product as unknown as Product); setShowModal(true); }}
-                            className="btn-ghost !p-2 !min-h-0 !min-w-0 border border-white/5 hover:border-gold/50 rounded text-mid hover:text-gold"
+                            className="btn-ghost !p-2.5 !min-h-0 !min-w-0 border border-white/5 hover:border-gold/50 rounded-lg text-mid hover:text-gold"
                             title="Edit"
                             aria-label="Edit piece"
                           >
-                            <Edit2 size={13} />
+                            <Edit2 size={15} />
                           </button>
                           <button
                             onClick={() => {
                               if (confirm(`Remove "${product.name}" from curation?`)) deleteMutation.mutate(product.id);
                             }}
-                            className="btn-ghost !p-2 !min-h-0 !min-w-0 border border-white/5 hover:border-red-500/50 rounded text-mid hover:text-red-400"
+                            className="btn-ghost !p-2.5 !min-h-0 !min-w-0 border border-white/5 hover:border-red-500/50 rounded-lg text-mid hover:text-red-400"
                             title="Delete"
                             aria-label="Delete piece"
                           >
-                            <Trash2 size={13} />
+                            <Trash2 size={15} />
                           </button>
                         </div>
                       </td>
